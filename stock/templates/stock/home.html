@@ -1,0 +1,35 @@
+{% extends 'stock/main.html' %}
+{% block content %}
+		<br>
+
+		<div class="row">
+            <div class="col-md">
+                <div class="card card-body">
+                    <h5>Produk</h5>
+                </div>
+                <div class="card card-body">
+                    <a class="btn btn-primary  btn-sm btn-block" href="">Tambah Produk</a>
+                    <table class="table">
+                        <tr>
+                            <th>No.</th>
+                            <th>Nama Barang</th>
+                            <th>Kuantitas</th>
+                            <th>Update</th>
+                            <th>Remove</th>
+                        </tr>
+                        {% for i in products %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.quantity}}</td>
+                            <td><a class="btn btn-warning btn-sm" href ="">Update</a></td>
+                            <td><a class="btn btn-danger btn-sm" href ="">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+		</div>
+
+
+{% endblock %}

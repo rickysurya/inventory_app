@@ -119,3 +119,43 @@ def deletePurchase(request, pk):
         'purchase' : purchase
     }
     return render(request, 'stock/delete.html', context)
+
+#customer CUD
+def createCustomer(request):
+    form = PurchaseForm()
+    if request.method == 'POST': 
+        form = PurchaseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/purchase')
+
+    context = {
+        'form' : form
+    }
+    return render(request, 'stock/form.html', context)
+
+def updatePurchase(request, pk):
+
+    purchase = Purchase.objects.get(id=pk)
+    form = PurchaseForm(instance=purchase)
+    if request.method == 'POST': 
+        form = PurchaseForm(request.POST, instance=purchase)
+        if form.is_valid():
+                form.save()
+                return redirect('/purchase')
+    context = {
+        'form' : form,
+    }
+    return render(request, 'stock/form.html', context)
+
+def deletePurchase(request, pk):
+    purchase = Purchase.objects.get(id=pk)
+    if request.method == "POST":
+        purchase.delete()
+        return redirect('/order')
+    context = {
+        'purchase' : purchase
+    }
+    return render(request, 'stock/delete.html', context)
+
+#supplier CUD

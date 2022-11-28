@@ -1,14 +1,25 @@
 {% extends 'stock/main.html' %}
-{% load static %}
+{% load bootstrap5 %}
+
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+
+{% bootstrap_messages %}
+
 {% block content %}
 <br>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6  mx-auto">
         <div class="card card-body">
             <form action="" method="POST">
+                
                 {% csrf_token %}
-                {{form}}
-                <input class="btn btn-primary btn-sm" type="submit" name="Submit">
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                {% endbuttons %}
             </form>
         </div>
     </div>

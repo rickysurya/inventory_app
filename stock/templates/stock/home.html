@@ -1,18 +1,31 @@
 {% extends 'stock/main.html' %}
-{% block content %}
-		<br>
 
-		<div class="row">
-            <div class="col-md">
-                <div class="card card-body">
-                    <h5>Produk</h5>
+{% block content %}
+        <br>
+        <div class="row">
+                <div class="col-md-10 mx-auto">
+                    <div class="card card-body right">
+                        <form method="get">
+                             <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="name" placeholder="Cari nama produk" aria-label="" aria-describedby="button-addon2" maxlength="200" required>
+                                <button class="btn btn-primary" type="submit" id="button-addon2">Search</button>
+                            </div> 
+                        </form>
+                    
+                    </div>
                 </div>
+        </div>
+        <br>
+		<div class="row">
+            <div class="col-md-10 mx-auto">
+                <h5>Produk</h5>
+                <hr>
                 <div class="card card-body">
-                    <a class="btn btn-primary  btn-sm btn-block" href="">Tambah Produk</a>
+                    <a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_product' %}">Tambah Produk</a>
                     <table class="table">
                         <tr>
                             <th>No.</th>
-                            <th>Nama Barang</th>
+                            <th>Nama Produk</th>
                             <th>Kuantitas</th>
                             <th>Update</th>
                             <th>Remove</th>
@@ -22,14 +35,15 @@
                             <td>{{ forloop.counter }}</td>
                             <td>{{i.name}}</td>
                             <td>{{i.quantity}}</td>
-                            <td><a class="btn btn-warning btn-sm" href ="">Update</a></td>
-                            <td><a class="btn btn-danger btn-sm" href ="">Delete</a></td>
+                            <td><a class="btn btn-warning btn-sm" href ="{% url 'update_product' i.id %}">Update</a></td>
+                            <td><a class="btn btn-danger btn-sm" href ="{% url 'delete_product' i.id %}">Delete</a></td>
                         </tr>
                         {% endfor %}
                     </table>
                 </div>
             </div>
 		</div>
+        <br>
 
 
 {% endblock %}

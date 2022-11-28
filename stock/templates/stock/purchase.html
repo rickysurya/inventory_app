@@ -1,10 +1,19 @@
 {% extends 'stock/main.html' %}
+{% load bootstrap5 %}
+
+
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+
+
+        {% bootstrap_messages %}
+
 {% block content %}
 <br>
 
 <div class="row">
 	<div class="col">
-		<div class="col-md">
+		<div class="col-md mx-auto">
 			<div class="card text-center text-white  mb-3" id="total-orders">
 			  	<div class="card-header">
 			  		<h5 class="card-title">Total Pembelian</h5>
@@ -17,7 +26,7 @@
 	</div>
 
 	<div class="col">
-		<div class="col-md">
+		<div class="col-md mx-auto">
 			<div class="card text-center text-white  mb-3" id="orders-delivered">
 			  	<div class="card-header">
 			  		<h5 class="card-title">Pembelian Tiba</h5>
@@ -30,7 +39,7 @@
 	</div>
 
 	<div class="col">
-		<div class="col-md">
+		<div class="col-md mx-auto">
 			<div class="card text-center text-white  mb-3" id="orders-pending">
 			  	<div class="card-header">
 			  		<h5 class="card-title">Pembelian Pending</h5>
@@ -45,11 +54,29 @@
 <br>
 
 <div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-7">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Filter</button>
+        <div class="collapse" id="collapseExample">
+        <div class="card card-body right">
+            <form method="get">
+                {% bootstrap_form filter.form %}
+                {% buttons %}
+                <button class="btn btn-primary" type="submit">Search</button>
+                {% endbuttons %}
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<div class="row">
     <div class="col-md-5">
         <h5>Pemasok</h5>
         <hr>
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="">Tambah Pemasok</a>
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_supplier' %}">Tambah Pemasok</a>
 			<table class="table table-sm">
                 <tr>
                     <th>Nama</th>
@@ -63,8 +90,8 @@
                     <td>{{j.name}}</td>
                     <td>{{j.phone}}</td>
                     <td>{{j.email}}</td>
-                    <td><a class="btn btn-warning btn-sm" href ="">Update</a></td>
-                    <td><a class="btn btn-danger btn-sm" href ="">Delete</a></td>
+                    <td><a class="btn btn-warning btn-sm" href ="{% url 'update_supplier' j.id%}">Update</a></td>
+                    <td><a class="btn btn-danger btn-sm" href ="{% url 'delete_supplier' j.id%}">Delete</a></td>
                 </tr>
                 {% endfor %}
             </table>
@@ -77,8 +104,11 @@
 			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_purchase' %}">Buat Pembelian</a>
 			<table class="table table-sm">
 				<tr>
-					<th>Nama Barang</th>
+					<th>Nama Produk</th>
                     <th>Kuantitas</th>
+                    <th>Harga</th>
+                    <th>Total Harga</th>
+                    <th>Pemasok</th>
 					<th>Tanggal</th>
 					<th>Status</th>
 					<th>Update</th>
@@ -88,6 +118,9 @@
                     <tr>
                         <td>{{i.product}}</td>
                         <td>{{i.quantity}}</td>
+                        <td>Rp. {{i.price}}</td>
+                        <td>Rp. {{i.total}}</td>
+                        <td>{{i.supplier}}</td>
                         <td>{{i.date_created}}</td>
                         <td>{{i.status}}</td>
                         <td><a class="btn btn-warning btn-sm" href ="{% url 'update_purchase' i.id %}">Update</a></td>

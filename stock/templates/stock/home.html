@@ -27,6 +27,7 @@
                             <th>No.</th>
                             <th>Nama Produk</th>
                             <th>Kuantitas</th>
+                            <!-- <th>Gambar</th> -->
                             <th>Update</th>
                             <th>Remove</th>
                         </tr>
@@ -35,6 +36,7 @@
                             <td>{{ forloop.counter }}</td>
                             <td>{{i.name}}</td>
                             <td>{{i.quantity}}</td>
+                            <td><a href="{% url 'view_photo' i.id %}">View</a></td>
                             <td><a class="btn btn-warning btn-sm" href ="{% url 'update_product' i.id %}">Update</a></td>
                             <td><a class="btn btn-danger btn-sm" href ="{% url 'delete_product' i.id %}">Delete</a></td>
                         </tr>

@@ -5,6 +5,7 @@ from django.db import models
 class Product(models.Model):
     name = models.CharField(verbose_name='Nama Produk',max_length=200, null=False)
     quantity = models.IntegerField(verbose_name='Kuantitas',default=0)
+    image = models.ImageField(null=True)
 
     
     def __str__(self):

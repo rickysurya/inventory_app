@@ -1,0 +1,20 @@
+{% extends 'stock/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    img {
+        border: 1px solid black;
+    }
+</style>
+
+<div class="row">
+    <img id="photo" class="col-md-2 mx-auto d-block" src="{{product.image.url}}" alt="Product Image">
+</div>
+<br>
+<div class="row">
+    <a class="btn btn-dark mx-auto col-md-2" href="{% url 'home' %}">Kembali</a>
+</div>
+
+
+{% endblock %}

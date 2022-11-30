@@ -285,7 +285,7 @@ def deleteSupplier(request, pk):
 def createProduct(request):
     form = ProductForm()
     if request.method == 'POST': 
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/')
@@ -319,3 +319,11 @@ def deleteProduct(request, pk):
         'item' : product
     }
     return render(request, 'stock/delete.html', context)
+
+@login_required(login_url='login')
+def viewPhoto(request, pk):
+    product = Product.objects.get(id=pk)
+    context = {
+        'product': product
+    }
+    return render(request, 'stock/photo.html', context)

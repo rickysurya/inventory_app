@@ -53,6 +53,9 @@
 <br>
 
 <div class="row">
+    {{graph|safe}}
+</div>
+<div class="row">
     <div class="col-md-5"></div>
     <div class="col-md-7">
         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Filter</button>
@@ -117,8 +120,8 @@
                     <tr>
                         <td>{{i.product}}</td>
                         <td>{{i.quantity}}</td>
-                        <td>{{i.price}}</td>
-                        <td>{{i.total}}</td>
+                        <td>Rp. {{i.price}}</td>
+                        <td>Rp. {{i.total}}</td>
                         <td>{{i.customer}}</td>
                         <td>{{i.date_created}}</td>
                         <td>{{i.status}}</td>

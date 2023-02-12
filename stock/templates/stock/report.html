@@ -1,0 +1,29 @@
+{% extends 'stock/main.html'%}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <h3>Produk</h3>
+        {{fig_prod|safe}}
+        <br>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <h3>Pesanan</h3>
+        {{fig_order|safe}}
+        <br>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <h3>Pembelian Stok</h3>
+        {{fig_purchase|safe}}
+        <br>
+    </div>
+</div>
+
+
+
+{% endblock %}

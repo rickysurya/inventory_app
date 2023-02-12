@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+import plotly.graph_objects as go
 
 def register_view(request):
     if request.user.is_authenticated :
@@ -65,14 +66,16 @@ def home_view(request):
 def order_view(request):
     customers = Customer.objects.all()
     orders = Order.objects.all()
-    
 
-    filter_order = OrderFilter(request.GET, queryset=orders)
-    orders = filter_order.qs
 
     total_orders = orders.count()
     delivered = orders.filter(status='Delivered').count()
     pending = orders.filter(status='Pending').count()
+
+    filter_order = OrderFilter(request.GET, queryset=orders)
+    orders = filter_order.qs
+
+    
 
     context = {
         'filter' : filter_order,
@@ -89,13 +92,14 @@ def order_view(request):
 def purchase_view(request):
     suppliers = Supplier.objects.all()
     purchases = Purchase.objects.all()
+    total_purchases = purchases.count()
+    arrived = purchases.filter(status='Arrived').count()
+    pending = purchases.filter(status='Pending').count()
 
     filter_purchase = PurchaseFilter(request.GET, queryset=purchases)
     purchases = filter_purchase.qs
 
-    total_purchases = purchases.count()
-    arrived = purchases.filter(status='Arrived').count()
-    pending = purchases.filter(status='Pending').count()
+    
 
     context = {
         'filter' : filter_purchase,
@@ -327,3 +331,61 @@ def viewPhoto(request, pk):
         'product': product
     }
     return render(request, 'stock/photo.html', context)
+
+
+def viewReport(request):
+    product = Product.objects.all()
+    purchase = Purchase.objects.all()
+    order = Order.objects.all()
+    x_product = []
+    y_product = []
+
+    
+    for i in product: 
+        x_product.append(i.name)
+        y_product.append(i.quantity)
+    fig_prod = go.Figure(go.Bar(
+        x=x_product,
+        y=y_product,
+        orientation='v',
+        hovertemplate='<br>%{y}%'
+    ))
+    fig_prod.update_yaxes(title='Kuantitas')
+    fig_prod.update_xaxes(title='Produk')
+
+    x_order = []
+    y_order = []
+    for i in order: 
+        x_order.append(i.product.name)
+        y_order.append(i.total)
+    fig_order = go.Figure(go.Bar(
+        x=x_order,
+        y=y_order,
+        orientation='v',
+        hovertemplate='<br>%{y}%'
+    ))
+    fig_order.update_yaxes(title='Total Transaksi (Pemesanan)')
+    fig_order.update_xaxes(title='Produk')
+
+
+    x_purchase = []
+    y_purchase = []
+    for i in purchase: 
+        x_purchase.append(i.product.name)
+        y_purchase.append(i.total)
+    fig_purchase = go.Figure(go.Bar(
+        x=x_purchase,
+        y=y_purchase,
+        orientation='v',
+        hovertemplate='<br>%{y}%'
+    ))
+    fig_purchase.update_yaxes(title='Total Transaksi (Pembelian Stok)')
+    fig_purchase.update_xaxes(title='Produk')
+
+
+    context = {
+        'fig_prod' : fig_prod.to_html,
+        'fig_order' : fig_order.to_html,
+        'fig_purchase' : fig_purchase.to_html
+    }
+    return render(request, 'stock/report.html', context)

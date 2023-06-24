@@ -1,5 +1,5 @@
 # Inventory Management App
-![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white&width=200)
+A web app built with Django designed to manage inventory count, track sales, and streamline order process
 
 ### How to run
 Install the dependencies needed to run the app

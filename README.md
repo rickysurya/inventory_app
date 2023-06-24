@@ -10,7 +10,7 @@ Apply migrations
 ```
 $ python manage.py migrate
 ```
-You can now run the development server:
+You can now run the development server on your machine
 ```
 $ python manage.py runserver
 ```
